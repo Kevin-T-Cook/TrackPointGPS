@@ -3,12 +3,14 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 	"oneStepGps/handlers"
 	"oneStepGps/models"
 	"oneStepGps/utils"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"github.com/joho/godotenv"
 )
 
 func enableCORS(next http.Handler) http.Handler {
@@ -32,7 +34,17 @@ func enableCORS(next http.Handler) http.Handler {
 }
 
 func main() {
-	dsn := "host=localhost user=kevincook password=LolaBean dbname=onestepdb port=5432 sslmode=disable TimeZone=America/Los_Angeles"
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	dsn := "host=" + os.Getenv("DB_HOST") +
+		" port=" + os.Getenv("DB_PORT") +
+		" user=" + os.Getenv("DB_USER") +
+		" password=" + os.Getenv("DB_PASSWORD") +
+		" dbname=" + os.Getenv("DB_NAME") +
+		" sslmode=disable TimeZone=America/Los_Angeles"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
@@ -40,6 +52,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+
+	log.Println("Connected to the database successfully")
 
 	if !db.Migrator().HasTable(&models.Preferences{}) {
 		log.Println("Creating preferences table...")
@@ -54,7 +68,7 @@ func main() {
 
 	deviceHandler := handlers.DeviceHandler{
 		DB:     db,
-		APIKey: "Vr_K75nQ5_cWqhQxoDl2tzufnkUBFqwOjYoME2n4qQM",
+		APIKey: os.Getenv("API_KEY"),
 	}
 	prefsHandler := handlers.PreferencesHandler{DB: db}
 	loginHandler := handlers.LoginHandler{DB: db}

@@ -19,3 +19,5 @@ require (
 	gorm.io/driver/sqlite v1.5.6
 	gorm.io/gorm v1.25.12
 )
+
+require github.com/joho/godotenv v1.5.1

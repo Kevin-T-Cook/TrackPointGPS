@@ -1,0 +1,24 @@
+# Ignore .env files
+.env
+
+# Ignore database files
+*.db
+
+# Ignore log files
+*.log
+
+# Ignore Go vendor directory (if applicable)
+/vendor/
+
+# Ignore binaries and build artifacts
+/bin/
+/obj/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore IDE/Editor configuration files
+.idea/
+.vscode/
+*.swp
