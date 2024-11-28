@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 INSERT INTO users (username, password_hash)
 VALUES 
-('testuser', '$2a$10$VcP1eVgO/5RYLNLqKuOXkuX0wtZ1em9ezDJ9G0bmriYdx9vQ/T.T6')
+('testuser', 'password123')
 ON CONFLICT (username) DO NOTHING;
 
 ALTER TABLE preferences ADD CONSTRAINT unique_user_id UNIQUE (user_id);
