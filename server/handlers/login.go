@@ -38,7 +38,7 @@ func (h *LoginHandler) Login(w http.ResponseWriter, r *http.Request) {
 
     var user struct {
         ID           string
-        PasswordHash string
+        Password     string
     }
     err := h.DB.Table("users").Where("username = ?", req.Username).First(&user).Error
     if err != nil {
@@ -46,7 +46,7 @@ func (h *LoginHandler) Login(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(req.Password)); err != nil {
+    if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil {
         http.Error(w, "Invalid credentials", http.StatusUnauthorized)
         return
     }
