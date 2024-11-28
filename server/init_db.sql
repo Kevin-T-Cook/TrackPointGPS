@@ -11,12 +11,12 @@ CREATE TABLE IF NOT EXISTS preferences (
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (username, password_hash)
+INSERT INTO users (username, password)
 VALUES 
-('testuser', '$2a$10$f.tEagZA3lZc2pUvdZrLr.N1pXgqm4fubQokrfdkdJjdWitlKDq5y')
+('testuser', '$2a$10$f.tEagZA3lZc2pUvdZrLr.N1pXgqm4fubQokrfdkdJjdWitlKDq5y') -- Matches column name
 ON CONFLICT (username) DO NOTHING;
 
 ALTER TABLE preferences ADD CONSTRAINT unique_user_id UNIQUE (user_id);
