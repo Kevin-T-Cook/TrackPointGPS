@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 INSERT INTO users (username, password)
 VALUES 
-('testuser', '$2a$10$f.tEagZA3lZc2pUvdZrLr.N1pXgqm4fubQokrfdkdJjdWitlKDq5y') -- Matches column name
+('testuser', '$2a$10$f.tEagZA3lZc2pUvdZrLr.N1pXgqm4fubQokrfdkdJjdWitlKDq5y')
 ON CONFLICT (username) DO NOTHING;
 
 ALTER TABLE preferences ADD CONSTRAINT unique_user_id UNIQUE (user_id);
