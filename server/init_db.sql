@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS preferences (
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (username, password_hash)
+INSERT INTO users (username, password)
 VALUES 
 ('testuser', 'password123')
 ON CONFLICT (username) DO NOTHING;
