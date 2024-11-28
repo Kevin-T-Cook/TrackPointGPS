@@ -164,7 +164,8 @@ export default {
 
 .modal-actions {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -189,5 +190,16 @@ export default {
 
 .clear-button:hover {
   background-color: #b71c1c;
+}
+
+@media (max-width: 600px) {
+  .modal {
+    padding: 15px;
+    width: 95%;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
 }
 </style>

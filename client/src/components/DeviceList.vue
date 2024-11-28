@@ -4,17 +4,15 @@
 
     <div v-if="loading">Loading devices...</div>
     <div v-else>
-
       <!-- NorCal Section -->
       <div>
-        <h2 @click="zoomToRegion('NorCal')">
+        <h2 @click="toggleRegion('NorCal')">
           NorCal <span>{{ collapsedRegions.NorCal ? '+' : '-' }}</span>
         </h2>
         <ul v-if="!collapsedRegions.NorCal && filteredDevices?.NorCal.length">
-          <li v-for="device in filteredDevices.NorCal" :key="device.device_id" class="device-card"
-            @click="zoomToDevice(device)">
+          <li v-for="device in filteredDevices.NorCal" :key="device.device_id" class="device-card" @click="zoomToDevice(device)">
             <div class="device-icon">
-              <img :src="getDeviceImage(device.device_id)" alt="Device Icon" />
+              <img :src="getDeviceImage()" alt="Device Icon" />
             </div>
             <div class="device-info">
               <strong>Device Name:</strong> {{ device.display_name }}<br />
@@ -29,12 +27,11 @@
 
       <!-- SoCal Section -->
       <div>
-        <h2 @click="zoomToRegion('SoCal')">
+        <h2 @click="toggleRegion('SoCal')">
           SoCal <span>{{ collapsedRegions.SoCal ? '+' : '-' }}</span>
         </h2>
         <ul v-if="!collapsedRegions.SoCal && filteredDevices?.SoCal.length">
-          <li v-for="device in filteredDevices.SoCal" :key="device.device_id" class="device-card"
-            @click="zoomToDevice(device)">
+          <li v-for="device in filteredDevices.SoCal" :key="device.device_id" class="device-card" @click="zoomToDevice(device)">
             <div class="device-icon">
               <img :src="getDeviceImage()" alt="Device Icon" />
             </div>
@@ -151,30 +148,27 @@ export default {
     zoomToDevice(device) {
       this.$emit("zoom-to-device", device);
     },
-
-    zoomOutToAllDevices() {
-      this.$emit("zoom-out-to-all");
-    },
   },
 };
 </script>
-
 
 <style scoped>
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 li.device-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #faf5eb;
-  width: 400px;
+  width: 100%;
 }
 
 li.device-card:hover {
@@ -182,10 +176,9 @@ li.device-card:hover {
 }
 
 .device-icon {
-  flex-shrink: 0;
   width: 50px;
   height: 50px;
-  margin-right: 15px;
+  margin-bottom: 10px;
   border-radius: 50%;
   overflow: hidden;
   background-color: #fff;
@@ -200,7 +193,7 @@ li.device-card:hover {
 }
 
 .device-info {
-  flex: 1;
+  width: 100%;
   line-height: 1.5;
 }
 
@@ -213,5 +206,17 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media (min-width: 600px) {
+  li.device-card {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .device-icon {
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
 }
 </style>

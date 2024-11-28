@@ -13,25 +13,70 @@ Username: testuser
 Password: password123
 ```
 
-## Project setup
+## Prerequisites
+##### Before running the project, ensure you have the following installed:
+```
+Node.js (version 14.x or later)
+npm (comes with Node.js)
+Go (version 1.18 or later)
+PostgreSQL (version 12 or later)
+```
+
+## Setting Up The Project
+### Step 1: Clone the Repository
+```
+git clone https://github.com/Kevin-T-Cook/TrackPointGPS.git
+cd TrackPointGPS
+```
+
+### Step 2: Set Up Backend
+##### In the server, install dependencies for the project:
+```
+go mod tidy
+```
+
+##### Next you want to copy the example env file and rename it:
+```
+cp .env.example .env
+```
+
+##### Open the .env and update the following with your database credentials:
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=your_postgres_user
+DB_PASSWORD=your_postgres_password
+DB_NAME=your_database_name
+API_KEY=your_api_key_here  -- This was sent via email
+```
+
+##### Then you will run the database initialization script to create tables:
+```
+psql -U <your_postgres_user> -d <your_database_name> -f init_db.sql
+```
+
+##### Here is an example:
+```
+psql -U kevincook -d onestepdb -f init_db.sql
+```
+
+##### Lastly, you can start the backend server with this command:
+```
+go run main.go
+```
+
+### Step 3: Set Up Frontend
+##### Install dependencies for the project:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+##### Run the development server:
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
+## Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

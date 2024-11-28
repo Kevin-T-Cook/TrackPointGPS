@@ -286,20 +286,7 @@ body {
   height: 60px;
 }
 
-.preferences-button {
-  padding: 10px 20px;
-  background-color: #f57c00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.preferences-button:hover {
-  background-color: #e65100;
-}
-
+.preferences-button,
 .zoom-out-button {
   padding: 10px 20px;
   background-color: #f57c00;
@@ -310,7 +297,60 @@ body {
   cursor: pointer;
 }
 
+.preferences-button:hover,
 .zoom-out-button:hover {
   background-color: #e65100;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .logo {
+    height: 40px;
+    margin-bottom: 10px;
+  }
+
+  .preferences-button,
+  .zoom-out-button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .main-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .map-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    height: 30px;
+  }
+
+  .preferences-button,
+  .zoom-out-button {
+    font-size: 10px;
+    padding: 8px 15px;
+  }
+
+  .map-container {
+    height: 300px;
+  }
 }
 </style>

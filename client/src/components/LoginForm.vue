@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .login-container {
-  width: 800px;
+  max-width: 800px;
   margin: 50px auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -59,6 +59,7 @@ export default {
 
 h1 {
   text-align: center;
+  font-size: 2rem;
 }
 
 .form-group {
@@ -74,7 +75,6 @@ label {
 input {
   width: 100%;
   padding: 10px;
-  margin: 0;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
@@ -89,7 +89,6 @@ button {
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
-  text-align: center;
 }
 
 button:hover {
@@ -105,7 +104,49 @@ button:hover {
 
 .login-logo {
   display: block;
-  width: 500px;
+  max-width: 100%;
+  height: auto;
   margin: 0 auto 20px;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  button {
+    font-size: 16px;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  input {
+    padding: 6px;
+    font-size: 12px;
+  }
 }
 </style>
