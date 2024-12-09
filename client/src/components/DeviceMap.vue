@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       map: null,
-      markers: [],
+      markers: new Map(),
       defaultCenter: { lat: 34.0522, lng: -118.2437 },
       defaultZoom: 8,
     };
@@ -61,29 +61,49 @@ export default {
         center: this.defaultCenter,
         zoom: this.defaultZoom,
       });
-      this.updateMarkers();
     },
 
     updateMarkers() {
-      this.markers.forEach((marker) => marker.setMap(null));
-      this.markers = [];
       this.devices.forEach((device) => {
-        if (device.latest_device_point) {
+        const deviceId = device.device_id;
+        const latestPoint = device.latest_device_point;
+
+        if (!latestPoint) return;
+
+        const position = {
+          lat: parseFloat(latestPoint.lat),
+          lng: parseFloat(latestPoint.lng),
+        };
+
+        if (this.markers.has(deviceId)) {
+          const marker = this.markers.get(deviceId);
+          marker.setPosition(position);
+        } else {
           const marker = new google.maps.Marker({
-            position: {
-              lat: parseFloat(device.latest_device_point.lat),
-              lng: parseFloat(device.latest_device_point.lng),
-            },
+            position,
             map: this.map,
             title: device.display_name,
           });
-          this.markers.push(marker);
+
+          this.markers.set(deviceId, marker);
+
           const infoWindow = new google.maps.InfoWindow({
-            content: `<strong>${device.display_name}</strong><br>Speed: ${device.latest_device_point.speed || "N/A"} mph`,
+            content: `<strong>${device.display_name}</strong><br>Speed: ${
+              latestPoint.speed || "N/A"
+            } mph`,
           });
+
           marker.addListener("click", () => {
             infoWindow.open(this.map, marker);
           });
+        }
+      });
+
+      const currentDeviceIds = new Set(this.devices.map((d) => d.device_id));
+      this.markers.forEach((marker, deviceId) => {
+        if (!currentDeviceIds.has(deviceId)) {
+          marker.setMap(null);
+          this.markers.delete(deviceId);
         }
       });
     },
